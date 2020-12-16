@@ -4,7 +4,7 @@
     /* grid-auto-rows: auto ; */
     grid-template-areas: 
     "screen screen"
-    "keypad ."
+    "keypad .";
 
 }
 .screen{
@@ -39,5 +39,7 @@
     grid-area: operators;
 }
 button{
-
+    background-color: azure;
+    font-size: medium;
+    border-radius: 0.9rem;
 }
