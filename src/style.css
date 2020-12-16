@@ -1,0 +1,43 @@
+.frame{
+    display: inline-grid;
+    /* grid-template-columns: auto ; */
+    /* grid-auto-rows: auto ; */
+    grid-template-areas: 
+    "screen screen"
+    "keypad ."
+
+}
+.screen{
+    /* border: 3px solid black; */
+    color:black;
+    grid-area: screen;
+    background-color: hsl(160, 100%, 75%);
+}
+.subscreen{
+    /* color: red; */
+    background-color: hsl(160, 100%, 63%);
+}
+.keypad{
+   display: grid; 
+
+    grid-template-areas: "numbers operators";
+    grid-area: keypad;
+
+}
+.numbers{
+    /* display: inline-block; */
+    display: grid;
+    grid-template-columns: 3rem 3rem 3rem ;
+    grid-area: numbers;
+}
+
+.operators{
+    /* color: red; */
+    display: inline-grid;
+    grid-template-columns: auto ;
+    grid-template-rows: auto;
+    grid-area: operators;
+}
+button{
+
+}

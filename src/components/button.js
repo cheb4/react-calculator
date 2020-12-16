@@ -4,7 +4,7 @@ const button = (props) => {
   const { handler, value } = props;
 
   return (
-    <div>
+    <>
       <button
         onClick={() => {
           handler(value);
@@ -12,7 +12,7 @@ const button = (props) => {
       >
         {value}
       </button>
-    </div>
+    </>
   );
 };
 

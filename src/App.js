@@ -1,11 +1,12 @@
-import React, { useState } from "react";
-
+import React, { useState, useEffect } from "react";
+import "./style.css";
 import Btn from "./components/button";
 import Screen from "./components/screen";
 
 const App = () => {
   const [DisplayNumber, setDisplayNumber] = useState([]);
   const [Memory, setMemory] = useState([]);
+  const [evaluation, setEvaluation] = useState("");
 
   const operators = (val) => {
     if (DisplayNumber.length === 0) {
@@ -13,27 +14,36 @@ const App = () => {
       setDisplayNumber([]);
       return;
     }
+    if (Memory.length !== 0) {
+      console.log("gggg");
+    }
     const convertedNumber = Number(DisplayNumber.join(""));
     setMemory([...Memory, convertedNumber, val]);
     console.log(Memory);
     setDisplayNumber([]);
   };
 
-  const equals = () => {
-    const convertedNumber = Number(DisplayNumber.join(""));
-    setMemory([...Memory, convertedNumber]);
-    // function parse(str) {
-    //   return Function(`'use strict'; return (${str})`)();
-    // }
-    const joined = Memory.join(" ");
-    console.log(joined);
-    // const parsed = eval();
-    // console.log(parsed);
-    // setDisplayNumber(parsed);
+  const Equals = () => {
+    console.log(Memory);
+    setMemory([...Memory, Number(DisplayNumber.join(""))]);
+    setEvaluation(Memory);
   };
+
+  useEffect(() => {
+    if (evaluation !== "") {
+      const preEval = Memory.join(" ");
+      const evaluated = eval(preEval);
+      setDisplayNumber([evaluated]);
+      setMemory([]);
+      return () => {
+        setEvaluation("");
+      };
+    }
+  }, [evaluation]);
 
   const clearButtonHandler = () => {
     setDisplayNumber([]);
+    setMemory([]);
   };
 
   const buttonHandler = (val) => {
@@ -44,19 +54,35 @@ const App = () => {
   //
   const NumberButtons = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
     .map((ele) => ele.toString(10))
-    .map((num) => <Btn key={num} handler={buttonHandler} value={num} />);
+    .map((num) => (
+      <Btn
+        className="numberKeys"
+        style={{ color: "white", background: "silver" }}
+        key={num}
+        handler={buttonHandler}
+        value={num}
+      />
+    ));
   //
   return (
-    <div>
-      <Screen whatToDisplay={DisplayNumber} memory={Memory} />
-      {NumberButtons}
-      <Btn handler={clearButtonHandler} value="clear" />
-      <Btn handler={operators} value="+" />
-      <Btn handler={operators} value="-" />
-      <Btn handler={operators} value="*" />
-      <Btn handler={operators} value="/" />
-      <Btn handler={equals} value="=" />
-    </div>
+    <>
+      <div className="frame">
+        <div className="screen">
+          <Screen whatToDisplay={DisplayNumber} memory={Memory} />
+        </div>
+        <div className="keypad">
+          <div className="numbers">{NumberButtons}</div>
+          <div className="operators">
+            <Btn handler={operators} value="+" />
+            <Btn handler={operators} value="-" />
+            <Btn handler={operators} value="*" />
+            <Btn handler={operators} value="/" />
+            <Btn handler={clearButtonHandler} value="clear" />
+            <Btn handler={Equals} value="=" />
+          </div>
+        </div>
+      </div>
+    </>
   );
 };
 

@@ -4,7 +4,7 @@ const MemoryScreen = (props) => {
   const { data } = props;
   return (
     <div>
-      <h2>{data}</h2>
+      <h2 className="subscreen">{data}</h2>
     </div>
   );
 };
