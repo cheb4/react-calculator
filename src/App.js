@@ -63,7 +63,6 @@ const App = () => {
         value={num}
       />
     ));
-  //
   return (
     <>
       <div className="frame">
